@@ -1,0 +1,53 @@
+[
+  {
+    "id": "chordonomicon-2-verse1",
+    "title": "I Want To Die A Beautiful Death",
+    "artist": "Everclear",
+    "source_url": "https://huggingface.co/datasets/ailsntua/Chordonomicon/resolve/f3a8b678bd65639c01caa342921733f1db01be23/chordonomicon_v2.csv",
+    "source_record_id": "2",
+    "source_revision": "f3a8b678bd65639c01caa342921733f1db01be23",
+    "license": "CC-BY-NC-4.0",
+    "attribution": "Kantarelis, Thomas, Lyberatos, Dervakos and Stamou (2024), CHORDONOMICON. https://doi.org/10.48550/arXiv.2410.22046",
+    "excerpt": "Complete <verse_1> section, in source order, with all repeated chords retained; not a full-song analysis.",
+    "title_source_url": "https://open.spotify.com/track/2ffJZ2r8HxI5DHcmf3BO6c",
+    "original_chords": [
+      "E",
+      "D",
+      "A/Cs",
+      "E",
+      "D",
+      "A/Cs",
+      "E",
+      "D",
+      "A/Cs",
+      "E",
+      "D",
+      "A",
+      "C"
+    ],
+    "notation": "chordonomicon"
+  },
+  {
+    "id": "chordonomicon-3-verse1",
+    "title": "Sad Exchange",
+    "artist": "Finger Eleven",
+    "source_url": "https://huggingface.co/datasets/ailsntua/Chordonomicon/resolve/f3a8b678bd65639c01caa342921733f1db01be23/chordonomicon_v2.csv",
+    "source_record_id": "3",
+    "source_revision": "f3a8b678bd65639c01caa342921733f1db01be23",
+    "license": "CC-BY-NC-4.0",
+    "attribution": "Kantarelis, Thomas, Lyberatos, Dervakos and Stamou (2024), CHORDONOMICON. https://doi.org/10.48550/arXiv.2410.22046",
+    "excerpt": "Complete <verse_1> section, in source order, with all repeated chords retained; not a full-song analysis.",
+    "title_source_url": "https://open.spotify.com/track/5KiY8SZEnvCPyIEkFGRR3y",
+    "original_chords": [
+      "A",
+      "Csmin",
+      "A",
+      "Csmin",
+      "A",
+      "Csmin",
+      "A",
+      "B"
+    ],
+    "notation": "chordonomicon"
+  }
+]

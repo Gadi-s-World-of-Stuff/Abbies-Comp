@@ -1,0 +1,311 @@
+{
+  "schema": "tonnetz-curated-catalog/v1",
+  "songs": [
+    {
+      "id": "chordonomicon-2-verse1",
+      "title": "I Want To Die A Beautiful Death",
+      "artist": "Everclear",
+      "source_url": "https://huggingface.co/datasets/ailsntua/Chordonomicon/resolve/f3a8b678bd65639c01caa342921733f1db01be23/chordonomicon_v2.csv",
+      "source_record_id": "2",
+      "source_revision": "f3a8b678bd65639c01caa342921733f1db01be23",
+      "license": "CC-BY-NC-4.0",
+      "attribution": "Kantarelis, Thomas, Lyberatos, Dervakos and Stamou (2024), CHORDONOMICON. https://doi.org/10.48550/arXiv.2410.22046",
+      "excerpt": "Complete <verse_1> section, in source order, with all repeated chords retained; not a full-song analysis.",
+      "title_source_url": "https://open.spotify.com/track/2ffJZ2r8HxI5DHcmf3BO6c",
+      "notation": "chordonomicon",
+      "original_chords": [
+        "E",
+        "D",
+        "A/Cs",
+        "E",
+        "D",
+        "A/Cs",
+        "E",
+        "D",
+        "A/Cs",
+        "E",
+        "D",
+        "A",
+        "C"
+      ],
+      "chords": [
+        "E",
+        "D",
+        "A",
+        "E",
+        "D",
+        "A",
+        "E",
+        "D",
+        "A",
+        "E",
+        "D",
+        "A",
+        "C"
+      ],
+      "reductions": [
+        {
+          "original": "E",
+          "triad": "E",
+          "changes": [],
+          "pitch_classes": [
+            4,
+            8,
+            11
+          ]
+        },
+        {
+          "original": "D",
+          "triad": "D",
+          "changes": [],
+          "pitch_classes": [
+            2,
+            6,
+            9
+          ]
+        },
+        {
+          "original": "A/Cs",
+          "triad": "A",
+          "changes": [
+            "source notation normalized to A/C# (s = sharp, min = minor)",
+            "slash bass C# omitted; voicing/bass is not modeled"
+          ],
+          "pitch_classes": [
+            1,
+            4,
+            9
+          ]
+        },
+        {
+          "original": "E",
+          "triad": "E",
+          "changes": [],
+          "pitch_classes": [
+            4,
+            8,
+            11
+          ]
+        },
+        {
+          "original": "D",
+          "triad": "D",
+          "changes": [],
+          "pitch_classes": [
+            2,
+            6,
+            9
+          ]
+        },
+        {
+          "original": "A/Cs",
+          "triad": "A",
+          "changes": [
+            "source notation normalized to A/C# (s = sharp, min = minor)",
+            "slash bass C# omitted; voicing/bass is not modeled"
+          ],
+          "pitch_classes": [
+            1,
+            4,
+            9
+          ]
+        },
+        {
+          "original": "E",
+          "triad": "E",
+          "changes": [],
+          "pitch_classes": [
+            4,
+            8,
+            11
+          ]
+        },
+        {
+          "original": "D",
+          "triad": "D",
+          "changes": [],
+          "pitch_classes": [
+            2,
+            6,
+            9
+          ]
+        },
+        {
+          "original": "A/Cs",
+          "triad": "A",
+          "changes": [
+            "source notation normalized to A/C# (s = sharp, min = minor)",
+            "slash bass C# omitted; voicing/bass is not modeled"
+          ],
+          "pitch_classes": [
+            1,
+            4,
+            9
+          ]
+        },
+        {
+          "original": "E",
+          "triad": "E",
+          "changes": [],
+          "pitch_classes": [
+            4,
+            8,
+            11
+          ]
+        },
+        {
+          "original": "D",
+          "triad": "D",
+          "changes": [],
+          "pitch_classes": [
+            2,
+            6,
+            9
+          ]
+        },
+        {
+          "original": "A",
+          "triad": "A",
+          "changes": [],
+          "pitch_classes": [
+            1,
+            4,
+            9
+          ]
+        },
+        {
+          "original": "C",
+          "triad": "C",
+          "changes": [],
+          "pitch_classes": [
+            0,
+            4,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "id": "chordonomicon-3-verse1",
+      "title": "Sad Exchange",
+      "artist": "Finger Eleven",
+      "source_url": "https://huggingface.co/datasets/ailsntua/Chordonomicon/resolve/f3a8b678bd65639c01caa342921733f1db01be23/chordonomicon_v2.csv",
+      "source_record_id": "3",
+      "source_revision": "f3a8b678bd65639c01caa342921733f1db01be23",
+      "license": "CC-BY-NC-4.0",
+      "attribution": "Kantarelis, Thomas, Lyberatos, Dervakos and Stamou (2024), CHORDONOMICON. https://doi.org/10.48550/arXiv.2410.22046",
+      "excerpt": "Complete <verse_1> section, in source order, with all repeated chords retained; not a full-song analysis.",
+      "title_source_url": "https://open.spotify.com/track/5KiY8SZEnvCPyIEkFGRR3y",
+      "notation": "chordonomicon",
+      "original_chords": [
+        "A",
+        "Csmin",
+        "A",
+        "Csmin",
+        "A",
+        "Csmin",
+        "A",
+        "B"
+      ],
+      "chords": [
+        "A",
+        "C#m",
+        "A",
+        "C#m",
+        "A",
+        "C#m",
+        "A",
+        "B"
+      ],
+      "reductions": [
+        {
+          "original": "A",
+          "triad": "A",
+          "changes": [],
+          "pitch_classes": [
+            1,
+            4,
+            9
+          ]
+        },
+        {
+          "original": "Csmin",
+          "triad": "C#m",
+          "changes": [
+            "source notation normalized to C#m (s = sharp, min = minor)"
+          ],
+          "pitch_classes": [
+            1,
+            4,
+            8
+          ]
+        },
+        {
+          "original": "A",
+          "triad": "A",
+          "changes": [],
+          "pitch_classes": [
+            1,
+            4,
+            9
+          ]
+        },
+        {
+          "original": "Csmin",
+          "triad": "C#m",
+          "changes": [
+            "source notation normalized to C#m (s = sharp, min = minor)"
+          ],
+          "pitch_classes": [
+            1,
+            4,
+            8
+          ]
+        },
+        {
+          "original": "A",
+          "triad": "A",
+          "changes": [],
+          "pitch_classes": [
+            1,
+            4,
+            9
+          ]
+        },
+        {
+          "original": "Csmin",
+          "triad": "C#m",
+          "changes": [
+            "source notation normalized to C#m (s = sharp, min = minor)"
+          ],
+          "pitch_classes": [
+            1,
+            4,
+            8
+          ]
+        },
+        {
+          "original": "A",
+          "triad": "A",
+          "changes": [],
+          "pitch_classes": [
+            1,
+            4,
+            9
+          ]
+        },
+        {
+          "original": "B",
+          "triad": "B",
+          "changes": [],
+          "pitch_classes": [
+            3,
+            6,
+            11
+          ]
+        }
+      ]
+    }
+  ],
+  "policy": "Excerpts only. Seventh tones and slash bass may be omitted explicitly. Unsupported symbols reject the whole import. Attribution is recorded, not independently verified by this tool."
+}

@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171719">
+<title>Tonnetz</title><meta name="description" content="Compare chord progressions with Tonnetz.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Crect width='40' height='40' rx='12' fill='%23232325'/%3E%3Cpath d='M11 27L20 11L29 27Z' stroke='white' fill='none' stroke-width='1.5'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/explorer.css"><script src="/explorer.js" defer></script>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"><div class="light light-one"></div><div class="light light-two"></div><div class="light light-three"></div><div class="light-ring"></div></div>
+<header class="topbar"><a class="brand" href="/explore" aria-label="Tonnetz"><svg viewBox="0 0 30 30" fill="none" aria-hidden="true"><path d="M5 24 15 6 25 24ZM5 24 20 15M25 24 10 15M15 6v18" stroke="currentColor" stroke-width="1.3"/></svg>Tonnetz</a><nav aria-label="Main navigation"><a class="nav-active" href="/explore" aria-current="page">Explore</a><a href="/">Study</a></nav><button class="about-button" type="button" id="about-open" aria-label="About Tonnetz">i</button></header>
+<main>
+<section class="hero"><h1>Tonnetz<span>.</span></h1><p>Chord explorer</p></section>
+<div class="workspace">
+<aside class="composer" aria-label="Chord composer"><div class="composer-head"><h2>Progression</h2><span class="sidebar-caption">Major & minor triads</span></div><div class="composer-body"><form id="composer-form"><label class="input-label" for="progression">Chords</label><input id="progression" name="progression" value="C Em F G" placeholder="C Am F G" maxlength="300" autocomplete="off" spellcheck="false" required aria-describedby="chord-help"><p class="hint" id="chord-help">Separate chords with spaces. Up to 32.</p><label class="toggle" for="transpose">Match across keys<input type="checkbox" id="transpose" role="switch" checked></label><button class="primary" type="submit" id="find">Compare <span aria-hidden="true">→</span></button><p class="error" id="error" role="alert"></p><p class="status sr-only" id="status" role="status" aria-live="polite"></p></form><div class="library"><div class="library-head"><span>Examples</span><span class="badge">8</span></div><div id="samples" class="samples" aria-label="Example progressions"></div><p class="composer-note">Example sequences, not recordings.</p></div></div><div class="sidebar-bottom"><span class="connection-dot"></span> On this device</div></aside>
+<section id="analysis-area" aria-label="Harmonic analysis" aria-busy="true">
+<div class="canvas"><div class="canvas-head"><h2 id="current-title">Chord map</h2><span class="map-notation">Uppercase: major · lowercase: minor</span></div><div class="graph-wrap"><svg id="graph" viewBox="0 0 1166 695" role="group" aria-labelledby="graph-title"><title id="graph-title">Loading chord map</title></svg></div><div class="canvas-bottom playback-bar"><button type="button" class="play-progression" id="listen" aria-label="Play your progression" disabled>Play progression</button><div class="playback-chords"><span class="playback-label">Your chords</span><div id="current-chords"></div></div></div><p class="map-caption">24 triads · P / L / R connections · boundary chords repeat</p></div>
+<p class="status audio-status" id="audio-status" role="status" aria-live="polite"></p>
+<div class="matches-head"><h2>Matches</h2><span id="result-count">Loading…</span></div><div id="results"></div>
+<p class="results-note">Scores compare chord structure only.</p>
+</section></div>
+<footer><span>Tonnetz</span><span>P / L / R</span></footer>
+</main>
+<dialog id="about" aria-labelledby="about-title"><div class="dialog-head"><h2 id="about-title">About Tonnetz</h2><button class="quiet" type="button" id="about-close" aria-label="Close about">Done</button></div><p>Compare major and minor chord sequences using a graph of 24 triads. Each edge is one parallel (P), leading-tone (L), or relative (R) transformation.</p><p>Dynamic time warping aligns the sequences. Similarity = 1 / (1 + average alignment cost). Across-key mode checks 12 transpositions.</p><p>The hexagonal map repeats boundary chords. Copies refer to the same triad and play the same notes. Each visible edge is one P/L/R transformation. Brighter edges trace shortest paths between successive input chords. Distance is counted in edges, not screen space.</p><p>Audio previews are synthesized triads. Examples are chord sequences, not recordings. Scores describe harmonic structure, not musical taste.</p></dialog>
+</body></html>

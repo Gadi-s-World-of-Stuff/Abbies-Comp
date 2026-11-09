@@ -1,0 +1,48 @@
+{
+  "source_url": "https://huggingface.co/datasets/ailsntua/Chordonomicon/resolve/f3a8b678bd65639c01caa342921733f1db01be23/chordonomicon_v2.csv",
+  "revision": "f3a8b678bd65639c01caa342921733f1db01be23",
+  "rows": [
+    {
+      "id": "2",
+      "chords": "<intro_1> E D A/Cs E D A/Cs <verse_1> E D A/Cs E D A/Cs E D A/Cs E D A C <chorus_1> E G D A E G D A E G D A C D E D A/Cs <verse_2> E D A/Cs E D A/Cs E D A/Cs E D A C <chorus_2> E G D A E G D A E G D A C D <bridge_1> E C G D E C G D E C G D C D E G E G D A E G D A E G D A C D <chorus_3> E G D A E G D A E G D A C D <bridge_2> E C G D E C G D E C G D C D E",
+      "release_date": "2003-01-01",
+      "genres": "'alternative metal' 'alternative rock' 'nu metal' 'permanent wave' 'pop rock' 'post-grunge'",
+      "decade": "2000.0",
+      "rock_genre": "pop rock",
+      "artist_id": "artist_2",
+      "main_genre": "metal",
+      "spotify_song_id": "2ffJZ2r8HxI5DHcmf3BO6c",
+      "spotify_artist_id": "694QW15WkebjcrWgQHzRYF"
+    },
+    {
+      "id": "3",
+      "chords": "<intro_1> Csmin <verse_1> A Csmin A Csmin A Csmin A B <chorus_1> Csmin A Fsmin A B <verse_2> Csmin A Csmin A Csmin A Csmin A Fsmin <chorus_2> Csmin A Fsmin A B Csmin A Fsmin Csmin <bridge_1> A Csmin A Csmin A Csmin A Csmin <chorus_3> Dsmin B Gsmin B Cs Dsmin B Gsmin Dsmin Csmin A Fsmin Csmin A Fsmin Csmin",
+      "release_date": "2003-01-01",
+      "genres": "'alternative metal' 'canadian rock' 'funk metal' 'nu metal' 'post-grunge'",
+      "decade": "2000.0",
+      "rock_genre": "canadian rock",
+      "artist_id": "artist_3",
+      "main_genre": "metal",
+      "spotify_song_id": "5KiY8SZEnvCPyIEkFGRR3y",
+      "spotify_artist_id": "0niJkG4tKkne3zwr7I8n9n"
+    }
+  ],
+  "identity_checked": "2026-10-12",
+  "identity_method": "Spotify oEmbed track and artist titles; dataset ID association not audio-validated",
+  "identity_evidence": [
+    {
+      "record_id": "2",
+      "track_title": "I Want To Die A Beautiful Death",
+      "artist_name": "Everclear",
+      "track_oembed_url": "https://open.spotify.com/oembed?url=https://open.spotify.com/track/2ffJZ2r8HxI5DHcmf3BO6c",
+      "artist_oembed_url": "https://open.spotify.com/oembed?url=https://open.spotify.com/artist/694QW15WkebjcrWgQHzRYF"
+    },
+    {
+      "record_id": "3",
+      "track_title": "Sad Exchange",
+      "artist_name": "Finger Eleven",
+      "track_oembed_url": "https://open.spotify.com/oembed?url=https://open.spotify.com/track/5KiY8SZEnvCPyIEkFGRR3y",
+      "artist_oembed_url": "https://open.spotify.com/oembed?url=https://open.spotify.com/artist/0niJkG4tKkne3zwr7I8n9n"
+    }
+  ]
+}

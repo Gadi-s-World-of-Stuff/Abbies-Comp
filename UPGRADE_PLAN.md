@@ -1,3 +1,7 @@
+> Current scope — 9 November 2026: the user removed the Study feature.
+> The single-progression explorer is the only app interface. Historical plans below
+> are retained as reference and do not authorize restoring Study or its endpoints.
+
 # Mixtape staged upgrades
 
 ## Checked stage — obsolete analysis failures (12 October 2026)

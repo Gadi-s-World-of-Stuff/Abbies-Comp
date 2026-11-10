@@ -1,3 +1,7 @@
+> Current scope — 9 November 2026: the user removed the Study feature.
+> The single-progression explorer is the only app interface. Historical plans below
+> are retained as reference and do not authorize restoring Study or its endpoints.
+
 # Tooling research review
 
 Reviewed 7 October 2026 against the current app and primary documentation.

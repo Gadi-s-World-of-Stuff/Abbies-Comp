@@ -72,34 +72,44 @@ class ApiTests(unittest.TestCase):
             self.assertEqual(result["results"][0]["distance"], 0)
             self.assertIn("alignment", result["results"][0])
 
-    def test_multi_song_http_contract(self):
-        payload = {"songs": [{"title": "One", "progression": "C Am F G"},
-                             {"title": "Two", "progression": "F Dm Bb C"}]}
-        with urlopen(Request(self.base + "/api/analyze", json.dumps(payload).encode(),
-                             {"Content-Type": "application/json"}), timeout=5) as response:
-            result = json.load(response)
-            self.assertEqual(result["distances"][0][1], 0)
-            self.assertEqual(len(result["comparisons"]), 2)
+    def test_explorer_is_the_only_app_page(self):
         with urlopen(self.base, timeout=5) as response:
-            self.assertIn(b"Tonnetz Lab", response.read())
-        with self.assertRaises(HTTPError) as raised:
-            urlopen(Request(self.base + "/api/analyze", b'{"songs":[]}',
-                            {"Content-Type": "application/json"}), timeout=5)
-        self.assertEqual(raised.exception.code, 400)
+            root = response.read()
+        with urlopen(self.base + '/explore', timeout=5) as response:
+            self.assertEqual(root, response.read())
+        self.assertIn(b'Chord map', root)
+        self.assertNotIn(b'>Study<', root)
+        for path in ['/lab.html', '/lab.js', '/lab.css', '/api/catalog']:
+            with self.subTest(path=path), self.assertRaises(HTTPError) as raised:
+                urlopen(self.base + path, timeout=5)
+            self.assertEqual(raised.exception.code, 404)
 
-    def test_import_recalculates_instead_of_trusting_saved_scores(self):
-        from analysis import study_data
-        saved = study_data(TonnetzRecommender(SAMPLE_SONGS), SAMPLE_SONGS[:2])
-        saved['distances'][0][1] = 999
-        with urlopen(Request(self.base + '/api/import-study', json.dumps(saved).encode(),
-                             {'Content-Type': 'application/json'}), timeout=5) as response:
-            result = json.load(response)
-        self.assertFalse(result['verification']['results_match'])
-        self.assertEqual(result['study']['distances'][0][1], 0.4)
+    def test_retired_study_endpoints_are_unavailable(self):
+        for path in ['/api/analyze', '/api/import-study', '/api/report']:
+            with self.subTest(path=path), self.assertRaises(HTTPError) as raised:
+                urlopen(Request(self.base + path, b'{}',
+                                {'Content-Type': 'application/json'}), timeout=5)
+            self.assertEqual(raised.exception.code, 404)
+
+    def test_static_assets_support_conditional_revalidation(self):
+        with urlopen(self.base + '/explorer.css?v=1', timeout=5) as response:
+            etag = response.headers['ETag']
+            self.assertTrue(response.read())
         with self.assertRaises(HTTPError) as raised:
-            urlopen(Request(self.base + '/api/import-study', b'{}',
-                            {'Content-Type': 'application/json'}), timeout=5)
-        self.assertEqual(raised.exception.code, 400)
+            urlopen(Request(self.base + '/explorer.css?v=1',
+                            headers={'If-None-Match': etag}), timeout=5)
+        self.assertEqual(raised.exception.code, 304)
+        self.assertEqual(raised.exception.headers['ETag'], etag)
+        self.assertEqual(raised.exception.read(), b'')
+
+    def test_cached_responses_cannot_be_mutated_by_a_client(self):
+        with self.post({'progression': 'C Am F G', 'transpose': True}) as response:
+            first = json.load(response)
+        original = first['results'][0]['similarity']
+        first['results'][0]['similarity'] = -100
+        with self.post({'progression': 'C, Am, F, G', 'transpose': True}) as response:
+            second = json.load(response)
+        self.assertEqual(second['results'][0]['similarity'], original)
 
     def test_invalid_inputs_return_actionable_errors(self):
         for payload in [[], {"progression": ""}, {"progression": "Csus4"},

@@ -1,71 +1,83 @@
-"""Local browser interface for the original Tonnetz recommender."""
+"""Local browser interface for the Tonnetz explorer."""
+from functools import lru_cache
+from hashlib import sha256
+from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 import json
 import os
 from pathlib import Path
 import subprocess
-from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
+import sys
+from urllib.parse import urlsplit
 import webbrowser
 
 from tonnetz import Song, SAMPLE_SONGS, TonnetzRecommender
 from explanations import recommendation_data, song_data
-from analysis import parse_study, study_data
-from curated_catalog import catalog_songs
-from replay_study import verify
-from study_report import render_report
 
 ROOT = Path(__file__).resolve().parent
 ENGINE = TonnetzRecommender(SAMPLE_SONGS)
 
 
+@lru_cache(maxsize=32)
+def recommendation_response(chords, transpose):
+    """Cache immutable responses; input validation happens before this function."""
+    target = Song("Your progression", list(chords))
+    return json.dumps(recommendation_data(ENGINE, target, transpose),
+                      separators=(",", ":")).encode()
+
+
+@lru_cache(maxsize=8)
+def static_response(filename, modified_ns, size):
+    """A changed file gets a fresh cache key during local editing."""
+    body = (ROOT / filename).read_bytes()
+    return body, '"' + sha256(body).hexdigest() + '"'
+
+
 class Handler(BaseHTTPRequestHandler):
-    def reply(self, status, data, mime="application/json; charset=utf-8"):
+    def reply(self, status, data, mime="application/json; charset=utf-8",
+              cache="no-store", etag=None):
         body = data if isinstance(data, bytes) else json.dumps(data).encode()
         self.send_response(status)
         self.send_header("Content-Type", mime)
         self.send_header("Content-Length", str(len(body)))
-        self.send_header("Cache-Control", "no-store")
+        self.send_header("Cache-Control", cache)
+        if etag:
+            self.send_header("ETag", etag)
         self.end_headers()
-        self.wfile.write(body)
+        try:
+            self.wfile.write(body)
+        except (BrokenPipeError, ConnectionResetError, ConnectionAbortedError):
+            pass
 
     def do_GET(self):
-        if self.path == "/":
-            self.reply(200, (ROOT / "lab.html").read_bytes(), "text/html; charset=utf-8")
-        elif self.path == "/api/songs":
-            self.reply(200, [song_data(s) for s in SAMPLE_SONGS])
-        elif self.path == "/api/catalog":
-            self.reply(200, catalog_songs())
-        elif self.path == "/explore":
-            self.reply(200, (ROOT / "explore.html").read_bytes(), "text/html; charset=utf-8")
-        elif self.path in ("/network.js", "/network.css", "/lab.js", "/lab.css", "/explorer.js", "/explorer.css"):
-            mime = "text/javascript" if self.path.endswith(".js") else "text/css"
-            self.reply(200, (ROOT / self.path[1:]).read_bytes(), mime + "; charset=utf-8")
-        else:
+        path = urlsplit(self.path).path
+        if path == "/api/songs":
+            self.reply(200, [song_data(song) for song in SAMPLE_SONGS])
+            return
+        assets = {"/": ("explore.html", "text/html"),
+                  "/explore": ("explore.html", "text/html"),
+                  "/explorer.js": ("explorer.js", "text/javascript"),
+                  "/explorer.css": ("explorer.css", "text/css")}
+        if path not in assets:
             self.reply(404, {"error": "Page not found"})
+            return
+        filename, mime = assets[path]
+        stat = (ROOT / filename).stat()
+        body, etag = static_response(filename, stat.st_mtime_ns, stat.st_size)
+        cache = "private, no-cache"
+        if self.headers.get("If-None-Match") == etag:
+            self.reply(304, b"", mime + "; charset=utf-8", cache, etag)
+        else:
+            self.reply(200, body, mime + "; charset=utf-8", cache, etag)
 
     def do_POST(self):
-        if self.path not in ("/api/recommend", "/api/analyze", "/api/import-study", "/api/report"):
+        if urlsplit(self.path).path != "/api/recommend":
             self.reply(404, {"error": "Page not found"})
             return
         try:
             length = int(self.headers.get("Content-Length", "0"))
-            limit = 2_000_000 if self.path == '/api/import-study' else 12000
-            if not 0 < length <= limit:
+            if not 0 < length <= 12000:
                 raise ValueError("Please enter a short chord progression.")
             data = json.loads(self.rfile.read(length))
-            if self.path == '/api/report':
-                songs, invariant = parse_study(data)
-                self.reply(200, {'html': render_report(study_data(ENGINE, songs, invariant))})
-                return
-            if self.path == '/api/import-study':
-                verification = verify(data)
-                songs, invariant = parse_study(data['inputs'])
-                self.reply(200, {'verification': verification,
-                                 'study': study_data(ENGINE, songs, invariant)})
-                return
-            if self.path == "/api/analyze":
-                songs, invariant = parse_study(data)
-                self.reply(200, study_data(ENGINE, songs, invariant))
-                return
             if not isinstance(data, dict):
                 raise ValueError("Send a JSON object with a chord progression.")
             progression = data.get("progression", "")
@@ -77,19 +89,19 @@ class Handler(BaseHTTPRequestHandler):
             invariant = data.get("transpose", True)
             if not isinstance(invariant, bool):
                 raise ValueError("The any-key option must be true or false.")
-            self.reply(200, recommendation_data(ENGINE, target, invariant))
+            self.reply(200, recommendation_response(tuple(target.chords), invariant))
         except (ValueError, TypeError, AttributeError) as exc:
             self.reply(400, {"error": str(exc)})
 
 
 if __name__ == "__main__":
     server = ThreadingHTTPServer(("127.0.0.1", 8765), Handler)
-    url = "http://127.0.0.1:8765" + ("/explore" if "--explore" in __import__("sys").argv else "")
-    if "--no-browser" not in __import__("sys").argv:
+    url = "http://127.0.0.1:8765"
+    if "--no-browser" not in sys.argv:
         chrome = Path(os.environ.get("PROGRAMFILES", "C:/Program Files")) / "Google/Chrome/Application/chrome.exe"
         if chrome.exists():
             subprocess.Popen([str(chrome), url])
         else:
             webbrowser.open(url)
-    print(f"Mixtape for Abbie is running at {url}. Close this window to stop.", flush=True)
+    print(f"Abbies Comp is running at {url}. Close this window to stop.", flush=True)
     server.serve_forever()

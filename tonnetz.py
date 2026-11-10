@@ -1,4 +1,5 @@
 from collections import deque
+from functools import lru_cache
 from dataclasses import dataclass
 from itertools import permutations
 from typing import Dict, List, Optional, Sequence, Tuple
@@ -130,6 +131,7 @@ class TonnetzChordGraph:
                 neighbor = transform(chord, op)
                 self.adjacency[chord][neighbor] = op
 
+    @lru_cache(maxsize=576)
     def distance(self, start: Chord, goal: Chord) -> int:
         """Shortest P/L/R path length between two triads."""
         if start == goal:
